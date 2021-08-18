@@ -1,0 +1,17 @@
+{
+    "buy": "Buy",
+    "buyNFT": "Buy NFT",
+    "fundingTitle": "Knowledge Funding List",
+    "createFundingTitle": "Create Knowledge Funding",
+
+    "wallet":"My wallet",
+    "close":"Close",
+
+    "approve": "Approve",
+    "approving": "Approving",
+    "approve.success": "Approve success",
+    "time":"time",
+    "trx.fail":"Transaction fail",
+    "trx.success":"Transaction success",
+    "amount":"amount"
+}
