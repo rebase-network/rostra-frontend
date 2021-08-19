@@ -1,6 +1,10 @@
 {
     "buy": "Buy",
     "buyNFT": "Buy NFT",
+    "claimNFT": "Claim NFT",
+    "finishWork": "Finish Work",
+    "refund": "Refund",
+    "withdraw": "Withdraw",
     "fundingTitle": "Knowledge Fundings",
     "myFundingsTitle": "My Knowledge Fundings",
     "createFundingTitle": "Create Knowledge Funding",

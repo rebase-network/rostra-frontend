@@ -19,10 +19,6 @@ type ConvertProps = {
   cb?: () => void
 }
 
-interface FormValues {
-  amount: number
-  token?: string
-}
 
 export default function CreateProject(props: ConvertProps) {
   const history = useHistory()
@@ -30,7 +26,7 @@ export default function CreateProject(props: ConvertProps) {
   const crowdFundingApiInstance: any = crowdFundingApi(signer)
 
   const { onClose, cb = () => { } } = props
-  const initialValues: FormValues = { amount: 0, token: 'senior' }
+  const initialValues = {}
   const [loading, setLoading] = useState(false)
 
   const validationSchema = Yup.object({

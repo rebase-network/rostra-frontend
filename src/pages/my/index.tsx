@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { VStack, Box, Text, SimpleGrid, Center, Button, useDisclosure } from '@chakra-ui/react'
 import { BigNumber } from 'ethers'
 import BuyNFTModal from '../../components/Modals/BuyNFTModal'
-import { formatBalance } from '../../utils'
+import FinishWorkModal from '../../components/Modals/FinishWorkModal'
 import { t } from '../../i18n'
 import { crowdFundingApi, projectApi } from '../../utils/api'
 import store from '../../stores/account'
@@ -27,17 +27,24 @@ export default function MyProjectList() {
   const { address, signer } = store.useState('address', 'signer')
   const [projects, setProjects] = useState([])
   const [blockTime, setBlockTime] = useState(BigNumber.from('0'))
-  const [nftPrices, setNftPrices] = useState({} as any)
 
-  const liqModalProps = {
+  const modalProps = {
     ...useDisclosure()
   }
 
   const handleOpen = (project: string, nftPrice: number) => {
-    console.log('open')
     setCurrentProject(project)
     setCurrentNftPrice(nftPrice)
-    liqModalProps.onOpen()
+    modalProps.onOpen()
+  }
+
+  const finishWorkModalProps = {
+    ...useDisclosure()
+  }
+
+  const handleOpenFinishWork = (project: string) => {
+    setCurrentProject(project)
+    finishWorkModalProps.onOpen()
   }
 
   const fetchProjects = async () => {
@@ -65,8 +72,10 @@ export default function MyProjectList() {
     const [nftLimit, setNftLimit] = useState(BigNumber.from('0'))
     const [contribution, setContribution] = useState(BigNumber.from('0'))
     const [userNftAmount, setUserNftAmount] = useState(BigNumber.from('0'))
+
+    const projectApiInstance: any = projectApi(project, signer)
+
     const fetchData = async (project: string) => {
-      const projectApiInstance: any = projectApi(project, signer)
       const basicInfo = await projectApiInstance.getBasicInfo()
       const currentBalance = await projectApiInstance.currentBalance()
       const nftSoldAmount = await projectApiInstance.nftSoldAmount()
@@ -127,11 +136,36 @@ export default function MyProjectList() {
           onClick={() => { handleOpen(project, nftPrice) }}>
             {t('buyNFT')}
         </Button>
+
+        <Button
+          fontWeight={500} fontSize={16} h='60px' w='280px' colorScheme='grass'
+          onClick={() => { handleOpenFinishWork(project) }}>
+          {t('finishWork')}
+        </Button>
+
+        <Button
+          fontWeight={500} fontSize={16} h='60px' w='280px' colorScheme='grass'
+          onClick={() => { projectApiInstance.refund() }}>
+            {t('refund')}
+        </Button>
+
+        <Button
+          fontWeight={500} fontSize={16} h='60px' w='280px' colorScheme='grass'
+          onClick={() => { projectApiInstance.claimNFT() }}>
+            {t('claimNFT')}
+        </Button>
+
+        <Button
+          fontWeight={500} fontSize={16} h='60px' w='280px' colorScheme='grass'
+          onClick={() => { projectApiInstance.withdraw() }}>
+          {t('withdraw')}
+        </Button>
       </VStack>
     </Center >
   }
 
-  const buyNFTModal = currentNftPrice && <BuyNFTModal {...liqModalProps} project={currentProject} nftPrice={currentNftPrice} />
+  const buyNFTModal = currentNftPrice && <BuyNFTModal {...modalProps} project={currentProject} nftPrice={currentNftPrice} />
+  const finishWorkModal = currentProject && <FinishWorkModal {...finishWorkModalProps} project={currentProject} />
   const elems = projects.map((project) => {
     return <ProjectCard key={project} project={project} />
   })
@@ -147,6 +181,7 @@ export default function MyProjectList() {
       <SimpleGrid columns={3} spacing={4} >
         {elems}
       </SimpleGrid>
+      {finishWorkModal}
       {buyNFTModal}
     </VStack>
   )
