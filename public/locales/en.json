@@ -1,7 +1,8 @@
 {
     "buy": "Buy",
     "buyNFT": "Buy NFT",
-    "fundingTitle": "Knowledge Funding List",
+    "fundingTitle": "Knowledge Fundings",
+    "myFundingsTitle": "My Knowledge Fundings",
     "createFundingTitle": "Create Knowledge Funding",
 
     "wallet":"My wallet",

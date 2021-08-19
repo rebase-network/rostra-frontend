@@ -121,7 +121,7 @@ export default function CreateProject(props: ConvertProps) {
 
             <InputControl label='Description' name='description' />
 
-            <InputControl label='Days to Submit The Work' name='durationInDays' />
+            <InputControl label='Days Needed to Submit The Work' name='durationInDays' />
 
             <Divider />
 

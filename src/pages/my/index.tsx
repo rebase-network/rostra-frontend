@@ -20,7 +20,8 @@ const valueTextStyle = {
   mb: 12
 }
 
-export default function ProjectList() {
+export default function MyProjectList() {
+  const contentHigh = document.documentElement.clientHeight - 80 - 81 - 97
   const [currentProject, setCurrentProject] = useState('')
   const [currentNftPrice, setCurrentNftPrice] = useState(0)
   const { address, signer } = store.useState('address', 'signer')
@@ -62,6 +63,8 @@ export default function ProjectList() {
     const [isWorkSubmitted, setIsWorkSubmitted] = useState(false)
     const [nftPrice, setNftPrice] = useState(0)
     const [nftLimit, setNftLimit] = useState(BigNumber.from('0'))
+    const [contribution, setContribution] = useState(BigNumber.from('0'))
+    const [userNftAmount, setUserNftAmount] = useState(BigNumber.from('0'))
     const fetchData = async (project: string) => {
       const projectApiInstance: any = projectApi(project, signer)
       const basicInfo = await projectApiInstance.getBasicInfo()
@@ -70,6 +73,8 @@ export default function ProjectList() {
       const isWorkSubmitted = await projectApiInstance.isWorkSubmitted()
       const nftPrice = await projectApiInstance.nftPrice()
       const nftLimit = await projectApiInstance.nftLimit()
+      const contribution = await projectApiInstance.contributions(address)
+      const userNftAmount = await projectApiInstance.nftAmounts(address)
 
       setCurrentBalance(currentBalance)
       setNftSoldAmount(nftSoldAmount)
@@ -78,13 +83,18 @@ export default function ProjectList() {
       // setNftPrices({ ...nftPrices, [project]: nftPrice })
       setNftLimit(nftLimit)
       setBasicInfo(basicInfo)
+      setContribution(contribution)
+      setUserNftAmount(userNftAmount)
     }
 
     useEffect(() => {
       fetchData(project)
     }, [project])
 
+    if (contribution.eq(0)) return null;
+
     const getDeadline = (interval: number) => new Date(+ new Date() + interval * 1000).toLocaleDateString()
+
 
     return <Center minW='392px' background='white'>
       <VStack p={8} >
@@ -92,12 +102,12 @@ export default function ProjectList() {
           {basicInfo.title}
         </Text>
 
-        <Text {...descTextStyle}>
+        {/* <Text {...descTextStyle}>
           {basicInfo.description}
-        </Text>
+        </Text> */}
 
         <Text {...descTextStyle}>
-          NFT Sold/Total: {nftSoldAmount.toString()} / {nftLimit.toString()}
+          NFT Bought/Total: {userNftAmount.toString()} / {nftLimit.toString()}
         </Text>
 
         <Text {...descTextStyle}>
@@ -127,10 +137,10 @@ export default function ProjectList() {
   })
 
   return (
-    <VStack bgColor='contentBg' px='88px' pt='24px'>
+    <VStack h={contentHigh} bgColor='contentBg' px='88px' pt='24px'>
       <Box width='100%' mb='25px' px='24px'>
         <Text fontSize={34} fontWeight={600} color='textHead'>
-          {t('fundingTitle')}
+          {t('myFundingsTitle')}
         </Text>
       </Box>
 

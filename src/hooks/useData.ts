@@ -32,7 +32,7 @@
 // }
 
 export const useCurrentContractInfo = () => {
-  
+
 }
 
 // export const accountInfo = atom({
