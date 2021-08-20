@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { VStack, Box, Text, SimpleGrid, Center, Button, useDisclosure } from '@chakra-ui/react'
 import { BigNumber } from 'ethers'
 import BuyNFTModal from '../../components/Modals/BuyNFTModal'
-import { formatBalance } from '../../utils'
 import { t } from '../../i18n'
 import { crowdFundingApi, projectApi } from '../../utils/api'
 import store from '../../stores/account'
+import { getDeadline } from '../../utils'
 
 const descTextStyle = {
   color: 'textDesc',
@@ -83,8 +83,6 @@ export default function ProjectList() {
     useEffect(() => {
       fetchData(project)
     }, [project])
-
-    const getDeadline = (interval: number) => new Date(+ new Date() + interval * 1000).toLocaleDateString()
 
     return <Center minW='392px' background='white'>
       <VStack p={8} >
