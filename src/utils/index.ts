@@ -3,7 +3,7 @@ import warning from 'tiny-warning'
 import { ethers } from 'ethers'
 import i18next from 'i18next'
 import Big from 'big.js'
-
+import moment from 'moment';
 import { Contract } from '@ethersproject/contracts'
 import { getAddress } from '@ethersproject/address'
 import { AddressZero } from '@ethersproject/constants'
@@ -170,3 +170,6 @@ export const convertAmount = (amount = 0, decimal = 18, type='string') => {
   }
   return num.toNumber()
 }
+
+export const getDeadline = (interval: number) =>
+  moment(+ new Date() + interval * 1000).format('YYYY-MM-DD hh:mm a')

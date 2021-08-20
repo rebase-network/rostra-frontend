@@ -43,7 +43,6 @@ const btnStyle = {
     ml: 4,
     h: '40px',
     colorScheme: 'grass',
-    fontSize: '10px'
 }
 
 const FinishWorkModal = (props: Props) => {
@@ -62,12 +61,7 @@ const FinishWorkModal = (props: Props) => {
     const validationSchema = Yup.object({
         title: Yup.string().required(),
         description: Yup.string().required(),
-        durationInDays: Yup.number().required().positive(),
-        price: Yup.number().required().positive(),
-        limit: Yup.number().required().positive(),
-        name: Yup.string().required(),
-        symbol: Yup.string().required(),
-        baseTokenURI: Yup.string().required(),
+        URL: Yup.string().required(),
     })
 
     const onSub = async (values: any, actions: any) => {
@@ -75,24 +69,14 @@ const FinishWorkModal = (props: Props) => {
             const {
                 title,
                 description,
-                durationInDays,
-                price,
-                limit,
-                name,
-                symbol,
-                baseTokenURI
+                URL
             } = values
             let tx = null
             setLoading(true)
-            tx = await crowdFundingApiInstance.startProject(
+            tx = await projectApiInstance.finishWork(
                 title,
                 description,
-                durationInDays * 86400,
-                price,
-                limit,
-                name,
-                symbol,
-                baseTokenURI
+                URL
             )
             const res = await tx.wait(2)
             const toastProps: ToastProps = {
@@ -129,55 +113,28 @@ const FinishWorkModal = (props: Props) => {
         <ModalContent >
             <ModalHeader border='1px solid #F2F4F5'>
                 <Text textAlign='center' fontSize='20px' fontWeight={500}>
-                    {t('buyNFT')}
+                    {t('finishWork')}
                 </Text>
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody mt={4} pb={6}>
-                <VStack bgColor='contentBg' px='88px' pt='24px'>
-                    <Box width='100%' mb='25px'>
-                        <Text fontSize={34} fontWeight={600} color='textHead'>
-                            {t('createFundingTitle')}
-                        </Text>
-                    </Box>
-                    <Formik
-                        initialValues={initialValues}
-                        onSubmit={onSub}
-                        validationSchema={validationSchema}
-                    >
-                        {({ handleSubmit, values, errors, setFieldValue }) => (
-                            <Box maxWidth={'sm'} m='10px auto' as='form' onSubmit={handleSubmit as any}>
-                                <Heading as='h4' size='md'>
-                                    Knowledge Info
-                                </Heading>
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={onSub}
+                    validationSchema={validationSchema}
+                >
+                    {({ handleSubmit, values, errors, setFieldValue }) => (
+                        <Box maxWidth={'sm'} m='10px auto' as='form' onSubmit={handleSubmit as any}>
+                            <InputControl label='Title' name='title' />
 
-                                <InputControl label='Title' name='title' />
+                            <InputControl label='Description' name='description' />
 
-                                <InputControl label='Description' name='description' />
+                            <InputControl label='URL' name='URL' />
 
-                                <InputControl label='Days Needed to Submit The Work' name='durationInDays' />
-
-                                <Divider />
-
-                                <Heading as='h4' size='md' mt='1rem'>
-                                    NFT Info
-                                </Heading>
-                                <InputControl label='Price' name='price' />
-
-                                <InputControl label='Total Supply' name='limit' />
-
-                                <InputControl label='Name' name='name' />
-
-                                <InputControl label='Symbol' name='symbol' />
-
-                                <InputControl label='Token URI' name='baseTokenURI' />
-
-                                <SubmitButton {...btnStyle} isLoading={loading} >Confirm</SubmitButton>
-                            </Box>
-                        )}
-                    </Formik>
-
-                </VStack>
+                            <SubmitButton {...btnStyle} isLoading={loading} >Confirm</SubmitButton>
+                        </Box>
+                    )}
+                </Formik>
             </ModalBody>
         </ModalContent>
     </Modal>

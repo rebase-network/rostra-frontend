@@ -32,6 +32,7 @@
     "i18next-xhr-backend": "^3.2.2",
     "jsbi": "^3.1.4",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-app-env": "^1.2.3",
     "react-device-detect": "^1.15.0",
