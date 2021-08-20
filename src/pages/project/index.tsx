@@ -62,6 +62,8 @@ export default function ProjectList() {
     const [isWorkSubmitted, setIsWorkSubmitted] = useState(false)
     const [nftPrice, setNftPrice] = useState(0)
     const [nftLimit, setNftLimit] = useState(BigNumber.from('0'))
+    const [creator, setCreator] = useState('')
+
     const fetchData = async (project: string) => {
       const projectApiInstance: any = projectApi(project, signer)
       const basicInfo = await projectApiInstance.getBasicInfo()
@@ -70,6 +72,7 @@ export default function ProjectList() {
       const isWorkSubmitted = await projectApiInstance.isWorkSubmitted()
       const nftPrice = await projectApiInstance.nftPrice()
       const nftLimit = await projectApiInstance.nftLimit()
+      const creator = await projectApiInstance.creator()
 
       setCurrentBalance(currentBalance)
       setNftSoldAmount(nftSoldAmount)
@@ -78,11 +81,22 @@ export default function ProjectList() {
       // setNftPrices({ ...nftPrices, [project]: nftPrice })
       setNftLimit(nftLimit)
       setBasicInfo(basicInfo)
+      setCreator(creator)
     }
 
     useEffect(() => {
       fetchData(project)
     }, [project])
+
+    const isCreator = (creator.toLowerCase() === address.toLowerCase())
+    const buyNFTBtn = (
+      <Button
+        fontWeight={500} fontSize={16} h='40px' w='280px' colorScheme='grass'
+        disabled={isCreator}
+        onClick={() => { handleOpen(project, nftPrice) }}>
+        {t('buyNFT')}
+      </Button>
+    )
 
     return <Center minW='392px' background='white'>
       <VStack p={8} >
@@ -110,11 +124,7 @@ export default function ProjectList() {
           Work Submitted: {isWorkSubmitted ? 'Yes' : 'No'}
         </Text>
 
-        <Button
-          fontWeight={500} fontSize={16} h='60px' w='280px' colorScheme='grass'
-          onClick={() => { handleOpen(project, nftPrice) }}>
-            {t('buyNFT')}
-        </Button>
+        {buyNFTBtn}
       </VStack>
     </Center >
   }

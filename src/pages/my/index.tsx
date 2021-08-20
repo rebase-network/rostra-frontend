@@ -107,10 +107,6 @@ export default function MyProjectList() {
     const isCreator = (creator.toLowerCase() === address.toLowerCase())
     if (contribution.eq(0) && !isCreator) return null;
 
-    console.log('creator', creator)
-    console.log('address', address)
-    console.log('isCreator', isCreator)
-    console.log(basicInfo.title, '=================')
     const buyNFTBtn = !isCreator && (
       <Button
         fontWeight={500} fontSize={16} h='40px' w='280px' colorScheme='grass'
