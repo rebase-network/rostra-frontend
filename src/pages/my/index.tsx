@@ -22,7 +22,6 @@ const valueTextStyle = {
 }
 
 export default function MyProjectList() {
-  const contentHigh = document.documentElement.clientHeight - 80
   const [currentProject, setCurrentProject] = useState('')
   const [currentNftPrice, setCurrentNftPrice] = useState(0)
   const { address, signer } = store.useState('address', 'signer')
@@ -66,8 +65,6 @@ export default function MyProjectList() {
       description: '',
       timeToSubmitWork: BigNumber.from('0')
     })
-    const [currentBalance, setCurrentBalance] = useState(BigNumber.from('0'))
-    const [nftSoldAmount, setNftSoldAmount] = useState(BigNumber.from('0'))
     const [isWorkSubmitted, setIsWorkSubmitted] = useState(false)
     const [nftPrice, setNftPrice] = useState(0)
     const [nftLimit, setNftLimit] = useState(BigNumber.from('0'))
@@ -79,8 +76,6 @@ export default function MyProjectList() {
 
     const fetchData = async () => {
       const basicInfo = await projectApiInstance.getBasicInfo()
-      const currentBalance = await projectApiInstance.currentBalance()
-      const nftSoldAmount = await projectApiInstance.nftSoldAmount()
       const isWorkSubmitted = await projectApiInstance.isWorkSubmitted()
       const nftPrice = await projectApiInstance.nftPrice()
       const nftLimit = await projectApiInstance.nftLimit()
@@ -88,11 +83,8 @@ export default function MyProjectList() {
       const userNftAmount = await projectApiInstance.nftAmounts(address)
       const creator = await projectApiInstance.creator()
 
-      setCurrentBalance(currentBalance)
-      setNftSoldAmount(nftSoldAmount)
       setIsWorkSubmitted(isWorkSubmitted)
       setNftPrice(nftPrice.toNumber())
-      // setNftPrices({ ...nftPrices, [project]: nftPrice })
       setNftLimit(nftLimit)
       setBasicInfo(basicInfo)
       setContribution(contribution)
@@ -190,7 +182,7 @@ export default function MyProjectList() {
   })
 
   return (
-    <VStack h={contentHigh} bgColor='contentBg' px='88px' pt='24px'>
+    <VStack bgColor='contentBg' px='88px' pt='24px'>
       <Box width='100%' mb='25px' px='24px'>
         <Text fontSize={34} fontWeight={600} color='textHead'>
           {t('myFundingsTitle')}
