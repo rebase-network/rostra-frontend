@@ -77,7 +77,7 @@ export default function MyProjectList() {
 
     const projectApiInstance: any = projectApi(project, signer)
 
-    const fetchData = async (project: string) => {
+    const fetchData = async () => {
       const basicInfo = await projectApiInstance.getBasicInfo()
       const currentBalance = await projectApiInstance.currentBalance()
       const nftSoldAmount = await projectApiInstance.nftSoldAmount()
@@ -101,8 +101,8 @@ export default function MyProjectList() {
     }
 
     useEffect(() => {
-      fetchData(project)
-    }, [project])
+      fetchData()
+    }, [])
 
     const isCreator = (creator.toLowerCase() === address.toLowerCase())
     if (contribution.eq(0) && !isCreator) return null;
