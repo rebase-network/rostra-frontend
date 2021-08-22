@@ -21,6 +21,7 @@ type ConvertProps = {
 
 
 export default function CreateProject(props: ConvertProps) {
+  const contentHigh = document.documentElement.clientHeight - 80
   const history = useHistory()
   const { signer } = store.useState('address', 'signer')
   const crowdFundingApiInstance: any = crowdFundingApi(signer)
@@ -96,11 +97,11 @@ export default function CreateProject(props: ConvertProps) {
   }
 
   return (
-    <VStack bgColor='contentBg' px='88px' pt='24px'>
+    <VStack minH={contentHigh} bgColor='contentBg' p='32px'>
       <Box width='100%' mb='25px'>
-        <Text fontSize={34} fontWeight={600} color='textHead'>
+        <Heading as="h2">
           {t('createFundingTitle')}
-        </Text>
+        </Heading>
       </Box>
       <Formik
         initialValues={initialValues}

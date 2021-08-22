@@ -134,8 +134,8 @@ export default function ProjectList() {
   })
 
   return (
-    <VStack minH={contentHigh} bgColor='contentBg' pt='24px'>
-      <Box width='100%' mb='25px' px='32px'>
+    <VStack minH={contentHigh} bgColor='contentBg' p='32px'>
+      <Box width='100%' mb='25px'>
         <Heading as="h2">
           {t('fundingTitle')}
         </Heading>
