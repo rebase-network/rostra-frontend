@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { VStack, Box, Text, SimpleGrid, Center, Button, useDisclosure } from '@chakra-ui/react'
+import { Heading, VStack, Box, Text, SimpleGrid, Center, Button, useDisclosure } from '@chakra-ui/react'
 import { BigNumber } from 'ethers'
 import BuyNFTModal from '../../components/Modals/BuyNFTModal'
 import { t } from '../../i18n'
@@ -21,12 +21,12 @@ const valueTextStyle = {
 }
 
 export default function ProjectList() {
+  const contentHigh = document.documentElement.clientHeight - 80
   const [currentProject, setCurrentProject] = useState('')
   const [currentNftPrice, setCurrentNftPrice] = useState(0)
   const { address, signer } = store.useState('address', 'signer')
   const [projects, setProjects] = useState([])
   const [blockTime, setBlockTime] = useState(BigNumber.from('0'))
-  const [nftPrices, setNftPrices] = useState({} as any)
 
   const liqModalProps = {
     ...useDisclosure()
@@ -78,7 +78,6 @@ export default function ProjectList() {
       setNftSoldAmount(nftSoldAmount)
       setIsWorkSubmitted(isWorkSubmitted)
       setNftPrice(nftPrice.toNumber())
-      // setNftPrices({ ...nftPrices, [project]: nftPrice })
       setNftLimit(nftLimit)
       setBasicInfo(basicInfo)
       setCreator(creator)
@@ -135,11 +134,11 @@ export default function ProjectList() {
   })
 
   return (
-    <VStack bgColor='contentBg' px='88px' pt='24px'>
-      <Box width='100%' mb='25px' px='24px'>
-        <Text fontSize={34} fontWeight={600} color='textHead'>
+    <VStack minH={contentHigh} bgColor='contentBg' pt='24px'>
+      <Box width='100%' mb='25px' px='32px'>
+        <Heading as="h2">
           {t('fundingTitle')}
-        </Text>
+        </Heading>
       </Box>
 
       <SimpleGrid columns={3} spacing={4} >

@@ -119,8 +119,6 @@ export default function CreateProject(props: ConvertProps) {
 
             <InputControl label='Days Needed to Submit The Work' name='durationInDays' />
 
-            <Divider />
-
             <Heading as='h4' size='md' mt='1rem'>
               NFT Info
             </Heading>

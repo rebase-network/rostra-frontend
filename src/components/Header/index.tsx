@@ -49,8 +49,8 @@ const Header = (props: HeaderProps) => {
 
   return (
     <>
-      <Flex h='80px' boxShadow="xl" bg="titleBg" color='white'>
-        <Center minW='210px' p='4'>
+      <Flex h='80px' boxShadow="xl" bg="titleBg" color='white' px='32px'>
+        <Center>
           {/* <Image h="40px" src={imgs.logo} ml="88px" /> */}
           <Link as={routerLink} to="/" textDecoration="none">Rostra</Link>
         </Center>

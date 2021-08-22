@@ -6,13 +6,13 @@ export default function About() {
 
   return (
     <VStack h={contentHigh} bgColor='contentBg' px='88px' pt='24px'>
-      <Box width='100%' mb='25px' px='24px'>
+      <Box maxW='800px' mt='2rem' mb='2rem' px='24px'>
         <Heading as="h2" size="lg" mb='1rem'>
           What is Rostra?
         </Heading>
         <Text>
           Rostra is a DAS(Decentralized Autonomous School),
-          try to change the way people learn and share.
+          committed to changing the way people learn and share.
         </Text>
         <Heading as="h2" size="lg" mb='1rem' mt='1rem'>
           The problem
