@@ -10,6 +10,7 @@ import Footer from '../components/Footer'
 import Project from './project'
 import CreateProject from './create'
 import My from './my'
+import About from './about'
 import ConnectWallet from '../components/ConnectWallet'
 import { globalStore } from 'rekv'
 
@@ -39,6 +40,7 @@ export const App = () => {
           <Switch>
             <Route exact strict path="/fundings/create" component={CreateProject} />
             <Route exact strict path="/my" component={My} />
+            <Route exact strict path="/about" component={About} />
             <Route exact strict path="/*" component={Project} />
           </Switch>
         </ConnectWallet>
