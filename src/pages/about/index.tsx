@@ -7,14 +7,14 @@ export default function About() {
   return (
     <VStack h={contentHigh} bgColor='contentBg' px='88px' pt='24px'>
       <Box maxW='800px' mt='2rem' mb='2rem' px='24px'>
-        <Heading as="h2" size="lg" mb='1rem'>
+        <Heading as="h2" size="md" mb='1rem'>
           What is Rostra?
         </Heading>
         <Text>
           Rostra is a DAS(Decentralized Autonomous School),
           committed to changing the way people learn and share.
         </Text>
-        <Heading as="h2" size="lg" mb='1rem' mt='1rem'>
+        <Heading as="h2" size="md" mb='1rem' mt='1rem'>
           The problem
         </Heading>
         <Text>
@@ -25,10 +25,10 @@ export default function About() {
           even worse we can not find a job.
         </Text>
 
-        <Heading as="h2" size="lg" mb='1rem' mt='1rem'>
+        <Heading as="h2" size="md" mb='1rem' mt='1rem'>
           The solution
         </Heading>
-        <Heading as="h3" size="md" mb='1rem' mt='1rem'>
+        <Heading as="h3" size="sm" mb='1rem' mt='1rem'>
           Learn as you go
         </Heading>
         <Text>
@@ -36,7 +36,7 @@ export default function About() {
           and learn the knowledge you want to learn,
           you should explore.
         </Text>
-        <Heading as="h3" size="md" mb='1rem' mt='1rem'>
+        <Heading as="h3" size="sm" mb='1rem' mt='1rem'>
           Contribute while learn
         </Heading>
         <Text>
@@ -44,7 +44,7 @@ export default function About() {
           each time you learn, research, explore,
           you will contribute by your submitted work.
         </Text>
-        <Heading as="h3" size="md" mb='1rem' mt='1rem'>
+        <Heading as="h3" size="sm" mb='1rem' mt='1rem'>
           Get paid from your contribution, early
         </Heading>
         <Text>
@@ -53,7 +53,7 @@ export default function About() {
           and also a signal to know whether your direction is welcome,
           which will related to the contribution.
         </Text>
-        <Heading as="h3" size="md" mb='1rem' mt='1rem'>
+        <Heading as="h3" size="sm" mb='1rem' mt='1rem'>
           Work will find you
         </Heading>
         <Text>
