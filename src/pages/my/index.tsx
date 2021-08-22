@@ -182,12 +182,12 @@ export default function MyProjectList() {
   })
 
   return (
-    <VStack bgColor='contentBg' px='88px' pt='24px'>
-      <Box width='100%' mb='25px' px='24px'>
+    <VStack bgColor='contentBg' p='32px'>
+      {/* <Box width='100%' mb='25px' px='24px'>
         <Text fontSize={34} fontWeight={600} color='textHead'>
           {t('myFundingsTitle')}
         </Text>
-      </Box>
+      </Box> */}
 
       <SimpleGrid columns={3} spacing={4} >
         {elems}

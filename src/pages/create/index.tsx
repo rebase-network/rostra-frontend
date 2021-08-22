@@ -27,7 +27,9 @@ export default function CreateProject(props: ConvertProps) {
   const crowdFundingApiInstance: any = crowdFundingApi(signer)
 
   const { onClose, cb = () => { } } = props
-  const initialValues = {}
+  const initialValues = {
+    baseTokenURI: 'https://rostra.xyz/nft-metadata?id='
+  }
   const [loading, setLoading] = useState(false)
 
   const validationSchema = Yup.object({
@@ -98,18 +100,25 @@ export default function CreateProject(props: ConvertProps) {
 
   return (
     <VStack minH={contentHigh} bgColor='contentBg' p='32px'>
-      <Box width='100%' mb='25px'>
+      {/* <Box width='100%' mb='25px'>
         <Heading as="h2" size="md">
           {t('createFundingTitle')}
         </Heading>
-      </Box>
+      </Box> */}
       <Formik
         initialValues={initialValues}
         onSubmit={onSub}
         validationSchema={validationSchema}
       >
         {({ handleSubmit, values, errors, setFieldValue }) => (
-          <Box maxWidth={'sm'} m='10px auto' as='form' onSubmit={handleSubmit as any}>
+          <Box
+            borderWidth="1px"
+            rounded="lg"
+            w={600}
+            p={6}
+            as="form"
+            onSubmit={handleSubmit as any}
+          >
             <Heading as='h4' size='md'>
               Knowledge Info
             </Heading>
