@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Heading, VStack, Box, Text, SimpleGrid, Center, Button, useDisclosure } from '@chakra-ui/react'
-import { BigNumber } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 import BuyNFTModal from '../../components/Modals/BuyNFTModal'
 import { t } from '../../i18n'
 import { crowdFundingApi, projectApi } from '../../utils/api'
@@ -23,20 +23,20 @@ const valueTextStyle = {
 export default function ProjectList() {
   const contentHigh = document.documentElement.clientHeight - 80
   const [currentProject, setCurrentProject] = useState('')
-  const [currentNftPrice, setCurrentNftPrice] = useState(0)
+  const [currentNftPrice, setCurrentNftPrice] = useState(BigNumber.from('0'))
   const { address, signer } = store.useState('address', 'signer')
   const [projects, setProjects] = useState([])
   const [blockTime, setBlockTime] = useState(BigNumber.from('0'))
 
-  const liqModalProps = {
+  const modalProps = {
     ...useDisclosure()
   }
 
-  const handleOpen = (project: string, nftPrice: number) => {
+  const handleOpen = (project: string, nftPrice: BigNumber) => {
     console.log('open')
     setCurrentProject(project)
     setCurrentNftPrice(nftPrice)
-    liqModalProps.onOpen()
+    modalProps.onOpen()
   }
 
   const fetchProjects = async () => {
@@ -60,7 +60,7 @@ export default function ProjectList() {
     const [currentBalance, setCurrentBalance] = useState(BigNumber.from('0'))
     const [nftSoldAmount, setNftSoldAmount] = useState(BigNumber.from('0'))
     const [isWorkSubmitted, setIsWorkSubmitted] = useState(false)
-    const [nftPrice, setNftPrice] = useState(0)
+    const [nftPrice, setNftPrice] = useState(BigNumber.from('0'))
     const [nftLimit, setNftLimit] = useState(BigNumber.from('0'))
     const [creator, setCreator] = useState('')
 
@@ -77,7 +77,7 @@ export default function ProjectList() {
       setCurrentBalance(currentBalance)
       setNftSoldAmount(nftSoldAmount)
       setIsWorkSubmitted(isWorkSubmitted)
-      setNftPrice(nftPrice.toNumber())
+      setNftPrice(nftPrice)
       setNftLimit(nftLimit)
       setBasicInfo(basicInfo)
       setCreator(creator)
@@ -112,7 +112,7 @@ export default function ProjectList() {
         </Text>
 
         <Text {...descTextStyle}>
-          NFT Price: {nftPrice}
+          NFT Price: {ethers.utils.formatEther(nftPrice)}
         </Text>
 
         <Text {...descTextStyle}>
@@ -128,7 +128,7 @@ export default function ProjectList() {
     </Center >
   }
 
-  const buyNFTModal = currentNftPrice && <BuyNFTModal {...liqModalProps} project={currentProject} nftPrice={currentNftPrice} />
+  const buyNFTModal = !currentNftPrice.eq(0) && <BuyNFTModal {...modalProps} project={currentProject} nftPrice={currentNftPrice} />
   const elems = projects.map((project) => {
     return <ProjectCard key={project} project={project} />
   })

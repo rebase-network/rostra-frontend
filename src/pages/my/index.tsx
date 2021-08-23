@@ -7,6 +7,7 @@ import { t } from '../../i18n'
 import { crowdFundingApi, projectApi } from '../../utils/api'
 import { getDeadline } from '../../utils'
 import store from '../../stores/account'
+import { ethers } from 'ethers'
 
 const descTextStyle = {
   color: 'textDesc',
@@ -23,7 +24,7 @@ const valueTextStyle = {
 
 export default function MyProjectList() {
   const [currentProject, setCurrentProject] = useState('')
-  const [currentNftPrice, setCurrentNftPrice] = useState(0)
+  const [currentNftPrice, setCurrentNftPrice] = useState(BigNumber.from('0'))
   const { address, signer } = store.useState('address', 'signer')
   const [projects, setProjects] = useState([])
   const [blockTime, setBlockTime] = useState(BigNumber.from('0'))
@@ -32,7 +33,7 @@ export default function MyProjectList() {
     ...useDisclosure()
   }
 
-  const handleOpen = (project: string, nftPrice: number) => {
+  const handleOpen = (project: string, nftPrice: BigNumber) => {
     setCurrentProject(project)
     setCurrentNftPrice(nftPrice)
     modalProps.onOpen()
@@ -66,7 +67,7 @@ export default function MyProjectList() {
       timeToSubmitWork: BigNumber.from('0')
     })
     const [isWorkSubmitted, setIsWorkSubmitted] = useState(false)
-    const [nftPrice, setNftPrice] = useState(0)
+    const [nftPrice, setNftPrice] = useState(BigNumber.from('0'))
     const [nftLimit, setNftLimit] = useState(BigNumber.from('0'))
     const [contribution, setContribution] = useState(BigNumber.from('0'))
     const [userNftAmount, setUserNftAmount] = useState(BigNumber.from('0'))
@@ -84,7 +85,7 @@ export default function MyProjectList() {
       const creator = await projectApiInstance.creator()
 
       setIsWorkSubmitted(isWorkSubmitted)
-      setNftPrice(nftPrice.toNumber())
+      setNftPrice(nftPrice)
       setNftLimit(nftLimit)
       setBasicInfo(basicInfo)
       setContribution(contribution)
@@ -150,7 +151,7 @@ export default function MyProjectList() {
         </Text>
 
         <Text {...descTextStyle}>
-          NFT Price: {nftPrice}
+          NFT Price: {ethers.utils.formatEther(nftPrice)}
         </Text>
 
         <Text {...descTextStyle}>
@@ -175,7 +176,7 @@ export default function MyProjectList() {
     </Center >
   }
 
-  const buyNFTModal = currentNftPrice && <BuyNFTModal {...modalProps} project={currentProject} nftPrice={currentNftPrice} />
+  const buyNFTModal = !currentNftPrice.eq(0) && <BuyNFTModal {...modalProps} project={currentProject} nftPrice={currentNftPrice} />
   const finishWorkModal = currentProject && <FinishWorkModal {...finishWorkModalProps} project={currentProject} />
   const elems = projects.map((project) => {
     return <ProjectCard key={project} project={project} />

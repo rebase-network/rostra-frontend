@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { BigNumber } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 import { t } from '../../i18n'
-import { crowdFundingApi, projectApi } from '../../utils/api'
+import { crowdFundingApi } from '../../utils/api'
 import store from '../../stores/account'
 import { VStack, Box, Text, Divider, Heading } from '@chakra-ui/react'
 import { Formik } from 'formik'
-import { RadioGroupControl, NumberInputControl, InputControl, SubmitButton,PercentComplete } from 'formik-chakra-ui'
+import { InputControl, SubmitButton } from 'formik-chakra-ui'
 import * as Yup from 'yup'
-import { toast, formatBalance } from '../../utils'
+import { toast } from '../../utils'
 import { ToastProps } from '../../constants'
 
 type ConvertProps = {
@@ -28,6 +28,13 @@ export default function CreateProject(props: ConvertProps) {
 
   const { onClose, cb = () => { } } = props
   const initialValues = {
+    title: '',
+    description: '',
+    durationInDays: '',
+    price: '',
+    limit: '',
+    name: '',
+    symbol: '',
     baseTokenURI: 'https://rostra.xyz/nft-metadata?id='
   }
   const [loading, setLoading] = useState(false)
@@ -57,11 +64,12 @@ export default function CreateProject(props: ConvertProps) {
       } = values
       let tx = null
       setLoading(true)
+      console.log('price: ', ethers.utils.parseEther(price))
       tx = await crowdFundingApiInstance.startProject(
         title,
         description,
         durationInDays * 86400,
-        price,
+        ethers.utils.parseEther(price),
         limit,
         name,
         symbol,
@@ -132,7 +140,7 @@ export default function CreateProject(props: ConvertProps) {
             <Heading as='h4' size='md' mt='1rem'>
               NFT Info
             </Heading>
-            <InputControl label='Price' name='price' />
+            <InputControl label='ETH Price' name='price' />
 
             <InputControl label='Total Supply' name='limit' />
 

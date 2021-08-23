@@ -19,27 +19,15 @@ import { projectApi } from '../../utils/api'
 import store from '../../stores/account'
 import { toast, formatBalance } from '../../utils'
 import ApproveBtn from '../ApproveBtn'
+import { BigNumber } from 'ethers'
 
 type Props = {
   isOpen: boolean
   onOpen: () => void
   onClose: () => void
   project: string
-  nftPrice: number
+  nftPrice: BigNumber
   cb?: () => void
-}
-
-type handlerLPRewardProps = {
-  amount: number
-  method: string
-}
-
-const btnStyle = {
-  width: '200px',
-  ml: 4,
-  h: '40px',
-  colorScheme: 'grass',
-  fontSize: '10px'
 }
 
 const BuyNFTModal = (props: Props) => {
@@ -57,7 +45,7 @@ const BuyNFTModal = (props: Props) => {
 
   const handleBuy = async () => {
     setBuyLoading(true)
-    const tx = await projectApiInstance.contribute(amount, { value: amount * nftPrice })
+    const tx = await projectApiInstance.contribute(amount, { value: nftPrice.mul(amount) })
     if (!tx) {
       setBuyLoading(false)
       return
