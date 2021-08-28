@@ -43,8 +43,6 @@ export const projectApi = (address: string, signer: any) => {
     }
   }
 
-  // const contribute =
-
   return {
     ...contractWithSigner,
     getBasicInfo
