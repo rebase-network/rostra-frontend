@@ -182,8 +182,10 @@ export default function MyProjectList() {
     return <ProjectCard key={project} project={project} />
   })
 
+  const contentHigh = document.documentElement.clientHeight - 80
+
   return (
-    <VStack bgColor='contentBg' p='32px'>
+    <VStack minH={contentHigh} bgColor='contentBg' p='32px'>
       {/* <Box width='100%' mb='25px' px='24px'>
         <Text fontSize={34} fontWeight={600} color='textHead'>
           {t('myFundingsTitle')}
