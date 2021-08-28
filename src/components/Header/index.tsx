@@ -57,7 +57,7 @@ const Header = (props: HeaderProps) => {
         <Spacer />
         <Flex minW='300px'>
           <Center p='4' fontSize={14} >
-            <Link ml={6} as={routerLink} to="/fundings/create">Create</Link>
+            <Link ml={6} as={routerLink} to="/fundings/create">Create Knowledge Funding</Link>
             <Link ml={6} as={routerLink} to="/about">About</Link>
           </Center>
 
