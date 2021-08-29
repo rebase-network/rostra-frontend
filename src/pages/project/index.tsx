@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Heading, VStack, Box, Text, SimpleGrid, Center, Button, useDisclosure } from '@chakra-ui/react'
+import { VStack, Link, Text, SimpleGrid, Center, Button, useDisclosure } from '@chakra-ui/react'
 import { BigNumber, ethers } from 'ethers'
 import BuyNFTModal from '../../components/Modals/BuyNFTModal'
 import { t } from '../../i18n'
@@ -63,6 +63,9 @@ export default function ProjectList() {
     const [nftPrice, setNftPrice] = useState(BigNumber.from('0'))
     const [nftLimit, setNftLimit] = useState(BigNumber.from('0'))
     const [creator, setCreator] = useState('')
+    const [workTitle, setWorkTitle] = useState('')
+    const [workDescription, setWorkDescription] = useState('')
+    const [workUrl, setWorkUrl] = useState('')
 
     const fetchData = async (project: string) => {
       const projectApiInstance: any = projectApi(project, signer)
@@ -73,6 +76,9 @@ export default function ProjectList() {
       const nftPrice = await projectApiInstance.nftPrice()
       const nftLimit = await projectApiInstance.nftLimit()
       const creator = await projectApiInstance.creator()
+      const workTitle = await projectApiInstance.workTitle()
+      const workDescription = await projectApiInstance.workDescription()
+      const workUrl = await projectApiInstance.workUrl()
 
       setCurrentBalance(currentBalance)
       setNftSoldAmount(nftSoldAmount)
@@ -81,6 +87,9 @@ export default function ProjectList() {
       setNftLimit(nftLimit)
       setBasicInfo(basicInfo)
       setCreator(creator)
+      setWorkTitle(workTitle)
+      setWorkDescription(workDescription)
+      setWorkUrl(workUrl)
     }
 
     useEffect(() => {
@@ -96,6 +105,23 @@ export default function ProjectList() {
         {t('buyNFT')}
       </Button>
     )
+
+    let workInfo
+
+    if (isWorkSubmitted) {
+      workInfo = (
+        <VStack>
+          <Text {...valueTextStyle} mb="1">
+            {/* {workTitle} */}
+            <Link ml={6} href={workUrl}>{workTitle}</Link>
+          </Text>
+
+          <Text>
+            {workDescription}
+          </Text>
+        </VStack>
+      )
+    }
 
     return <Center minW='392px' background='white'>
       <VStack p={8} >
@@ -122,7 +148,7 @@ export default function ProjectList() {
         <Text {...descTextStyle}>
           Work Submitted: {isWorkSubmitted ? 'Yes' : 'No'}
         </Text>
-
+        {workInfo}
         {buyNFTBtn}
       </VStack>
     </Center >
