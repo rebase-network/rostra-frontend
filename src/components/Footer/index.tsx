@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Flex, Spacer, Text, Image, HStack, Center } from "@chakra-ui/react";
+import { Flex, Link, Text, Image, HStack, Center } from "@chakra-ui/react";
 import { imgs } from '../../assets'
 // TODO media links
 type FooterProps = {};
@@ -13,14 +13,22 @@ const Footer = (props: FooterProps) => {
           © 2021 Rostra.xyz
       </Text>
       </Center>
-      {/* <Spacer />
+      <Center pl="32px">
+        <Text>
+          Donate: 0x8D07CFb29762A7561f004D042DDd47648640B23f
+      </Text>
+      </Center>
+
       <Center>
         <HStack minW='330px' p={8} w="120px" spacing="20px">
-          <Image h="20px" src={imgs.discord} />
-          <Image h="20px" src={imgs.github} />
-          <Image h="20px" src={imgs.medium} />
+          <Link href={"https://github.com/rebase-network/rostra-contracts"} target="_blank">
+            <Image h="20px" src={imgs.github} />
+          </Link>
+          <Link href={"https://discord.gg/c6BfH8JQn6"} target="_blank">
+            <Image h="20px" src={imgs.discord} />
+          </Link>
         </HStack>
-      </Center> */}
+      </Center>
 
     </Flex>
   );
