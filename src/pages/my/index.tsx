@@ -79,7 +79,7 @@ export default function MyProjectList() {
       const nftPrice = await projectApiInstance.nftPrice()
       const nftLimit = await projectApiInstance.nftLimit()
       const contribution = await projectApiInstance.contributions(address)
-      const userNftAmount = await projectApiInstance.nftAmounts(address)
+      const userNftAmount = await projectApiInstance.balanceOf(address)
       const creator = await projectApiInstance.creator()
       const creatorName = await projectApiInstance.creatorName()
       const title = await projectApiInstance.title()
