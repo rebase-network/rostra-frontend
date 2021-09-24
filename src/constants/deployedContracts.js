@@ -1,3 +1,3 @@
 module.exports = {
-  CrowdFunding: '0x00a6edb4A17bd33554d3D868Cd55B4153765CC9C',
+  CrowdFunding: '0x65b3c86FaBdb343582bB5c97a88070d76B4525D3',
 }
