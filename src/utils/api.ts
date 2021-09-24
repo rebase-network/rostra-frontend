@@ -35,17 +35,8 @@ export const projectApi = (address: string, signer: any) => {
   const contract = getContract(address, ProjectContract.abi)
   const contractWithSigner = contract.connect(signer)
 
-  const getBasicInfo = async () => {
-    return {
-      title: await contract.title(),
-      description: await contract.description(),
-      timeToSubmitWork: await contract.timeToSubmitWork(),
-    }
-  }
-
   return {
     ...contractWithSigner,
-    getBasicInfo
   }
 }
 

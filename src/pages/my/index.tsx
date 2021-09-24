@@ -61,33 +61,35 @@ export default function MyProjectList() {
   }, [])
 
   const ProjectCard = ({ project }: any) => {
-    const [basicInfo, setBasicInfo] = useState({
-      title: '',
-      description: '',
-      timeToSubmitWork: BigNumber.from('0')
-    })
     const [isWorkSubmitted, setIsWorkSubmitted] = useState(false)
     const [nftPrice, setNftPrice] = useState(BigNumber.from('0'))
     const [nftLimit, setNftLimit] = useState(BigNumber.from('0'))
     const [contribution, setContribution] = useState(BigNumber.from('0'))
     const [userNftAmount, setUserNftAmount] = useState(BigNumber.from('0'))
     const [creator, setCreator] = useState('')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [timeToSubmitWork, setTimeToSubmitWork] = useState(BigNumber.from('0'))
 
     const projectApiInstance: any = projectApi(project, signer)
 
     const fetchData = async () => {
-      const basicInfo = await projectApiInstance.getBasicInfo()
       const isWorkSubmitted = await projectApiInstance.isWorkSubmitted()
       const nftPrice = await projectApiInstance.nftPrice()
       const nftLimit = await projectApiInstance.nftLimit()
       const contribution = await projectApiInstance.contributions(address)
       const userNftAmount = await projectApiInstance.nftAmounts(address)
       const creator = await projectApiInstance.creator()
+      const title = await projectApiInstance.title()
+      const description = await projectApiInstance.description()
+      const timeToSubmitWork = await projectApiInstance.timeToSubmitWork()
 
+      setTitle(title)
+      setDescription(description)
+      setTimeToSubmitWork(timeToSubmitWork)
       setIsWorkSubmitted(isWorkSubmitted)
       setNftPrice(nftPrice)
       setNftLimit(nftLimit)
-      setBasicInfo(basicInfo)
       setContribution(contribution)
       setUserNftAmount(userNftAmount)
       setCreator(creator)
@@ -139,11 +141,11 @@ export default function MyProjectList() {
     return <Center minW='392px' background='white'>
       <VStack p={8} >
         <Text {...valueTextStyle}>
-          {basicInfo.title}
+          {title}
         </Text>
 
         <Text {...descTextStyle}>
-          {basicInfo.description}
+          {description}
         </Text>
 
         <Text {...descTextStyle}>
@@ -155,7 +157,7 @@ export default function MyProjectList() {
         </Text>
 
         <Text {...descTextStyle}>
-          Deadline: {getDeadline(basicInfo.timeToSubmitWork.toNumber() - blockTime.toNumber())}
+          Deadline: {getDeadline(timeToSubmitWork.toNumber() - blockTime.toNumber())}
         </Text>
 
         <Text {...descTextStyle}>

@@ -52,12 +52,6 @@ export default function ProjectList() {
   }, [])
 
   const ProjectCard = ({ project }: any) => {
-    const [basicInfo, setBasicInfo] = useState({
-      title: '',
-      description: '',
-      timeToSubmitWork: BigNumber.from('0')
-    })
-    const [currentBalance, setCurrentBalance] = useState(BigNumber.from('0'))
     const [nftSoldAmount, setNftSoldAmount] = useState(BigNumber.from('0'))
     const [isWorkSubmitted, setIsWorkSubmitted] = useState(false)
     const [nftPrice, setNftPrice] = useState(BigNumber.from('0'))
@@ -66,26 +60,31 @@ export default function ProjectList() {
     const [workTitle, setWorkTitle] = useState('')
     const [workDescription, setWorkDescription] = useState('')
     const [workUrl, setWorkUrl] = useState('')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [timeToSubmitWork, setTimeToSubmitWork] = useState(BigNumber.from('0'))
 
     const fetchData = async (project: string) => {
       const projectApiInstance: any = projectApi(project, signer)
-      const basicInfo = await projectApiInstance.getBasicInfo()
-      const currentBalance = await projectApiInstance.currentBalance()
       const nftSoldAmount = await projectApiInstance.nftSoldAmount()
       const isWorkSubmitted = await projectApiInstance.isWorkSubmitted()
       const nftPrice = await projectApiInstance.nftPrice()
       const nftLimit = await projectApiInstance.nftLimit()
       const creator = await projectApiInstance.creator()
+      const title = await projectApiInstance.title()
+      const description = await projectApiInstance.description()
+      const timeToSubmitWork = await projectApiInstance.timeToSubmitWork()
       const workTitle = await projectApiInstance.workTitle()
       const workDescription = await projectApiInstance.workDescription()
       const workUrl = await projectApiInstance.workUrl()
 
-      setCurrentBalance(currentBalance)
+      setTitle(title)
+      setDescription(description)
+      setTimeToSubmitWork(timeToSubmitWork)
       setNftSoldAmount(nftSoldAmount)
       setIsWorkSubmitted(isWorkSubmitted)
       setNftPrice(nftPrice)
       setNftLimit(nftLimit)
-      setBasicInfo(basicInfo)
       setCreator(creator)
       setWorkTitle(workTitle)
       setWorkDescription(workDescription)
@@ -126,11 +125,11 @@ export default function ProjectList() {
     return <Center minW='392px' background='white'>
       <VStack p={8} >
         <Text {...valueTextStyle}>
-          {basicInfo.title}
+          {title}
         </Text>
 
         <Text {...descTextStyle}>
-          {basicInfo.description}
+          {description}
         </Text>
 
         <Text {...descTextStyle}>
@@ -142,7 +141,7 @@ export default function ProjectList() {
         </Text>
 
         <Text {...descTextStyle}>
-          Deadline: {getDeadline(basicInfo.timeToSubmitWork.toNumber() - blockTime.toNumber())}
+          Deadline: {getDeadline(timeToSubmitWork.toNumber() - blockTime.toNumber())}
         </Text>
 
         <Text {...descTextStyle}>
