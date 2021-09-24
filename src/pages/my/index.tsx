@@ -126,20 +126,6 @@ export default function MyProjectList() {
         {t('withdraw')}
       </Button>
     )
-    const refundBtn = !isCreator && (
-      <Button
-        fontWeight={500} fontSize={16} h='40px' w='280px' colorScheme='grass'
-        onClick={() => { projectApiInstance.refund() }}>
-        {t('refund')}
-      </Button>
-    )
-    const claimNFTBtn = !isCreator && (
-      <Button
-        fontWeight={500} fontSize={16} h='40px' w='280px' colorScheme='grass'
-        onClick={() => { projectApiInstance.claimNFT() }}>
-        {t('claimNFT')}
-      </Button>
-    )
 
     return <Center minW='392px' background='white'>
       <VStack p={8} >
@@ -176,11 +162,6 @@ export default function MyProjectList() {
         {finishWorkBtn}
 
         {withdrawBtn}
-
-        {refundBtn}
-
-        {claimNFTBtn}
-
       </VStack>
     </Center >
   }
