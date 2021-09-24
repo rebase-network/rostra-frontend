@@ -19,7 +19,7 @@ const valueTextStyle = {
   color: 'textHead',
   fontSize: '18px',
   fontWeight: 600,
-  mb: 12
+  mb: 4
 }
 
 export default function MyProjectList() {
@@ -67,6 +67,7 @@ export default function MyProjectList() {
     const [contribution, setContribution] = useState(BigNumber.from('0'))
     const [userNftAmount, setUserNftAmount] = useState(BigNumber.from('0'))
     const [creator, setCreator] = useState('')
+    const [creatorName, setCreatorName] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [timeToSubmitWork, setTimeToSubmitWork] = useState(BigNumber.from('0'))
@@ -80,10 +81,12 @@ export default function MyProjectList() {
       const contribution = await projectApiInstance.contributions(address)
       const userNftAmount = await projectApiInstance.nftAmounts(address)
       const creator = await projectApiInstance.creator()
+      const creatorName = await projectApiInstance.creatorName()
       const title = await projectApiInstance.title()
       const description = await projectApiInstance.description()
       const timeToSubmitWork = await projectApiInstance.timeToSubmitWork()
 
+      setCreatorName(creatorName)
       setTitle(title)
       setDescription(description)
       setTimeToSubmitWork(timeToSubmitWork)
@@ -142,6 +145,10 @@ export default function MyProjectList() {
       <VStack p={8} >
         <Text {...valueTextStyle}>
           {title}
+        </Text>
+
+        <Text {...descTextStyle}>
+          {creatorName}
         </Text>
 
         <Text {...descTextStyle}>

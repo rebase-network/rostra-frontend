@@ -17,7 +17,7 @@ const valueTextStyle = {
   color: 'textHead',
   fontSize: '18px',
   fontWeight: 600,
-  mb: 12
+  mb: 4
 }
 
 export default function ProjectList() {
@@ -60,6 +60,7 @@ export default function ProjectList() {
     const [workTitle, setWorkTitle] = useState('')
     const [workDescription, setWorkDescription] = useState('')
     const [workUrl, setWorkUrl] = useState('')
+    const [creatorName, setCreatorName] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [timeToSubmitWork, setTimeToSubmitWork] = useState(BigNumber.from('0'))
@@ -71,6 +72,7 @@ export default function ProjectList() {
       const nftPrice = await projectApiInstance.nftPrice()
       const nftLimit = await projectApiInstance.nftLimit()
       const creator = await projectApiInstance.creator()
+      const creatorName = await projectApiInstance.creatorName()
       const title = await projectApiInstance.title()
       const description = await projectApiInstance.description()
       const timeToSubmitWork = await projectApiInstance.timeToSubmitWork()
@@ -78,6 +80,7 @@ export default function ProjectList() {
       const workDescription = await projectApiInstance.workDescription()
       const workUrl = await projectApiInstance.workUrl()
 
+      setCreatorName(creatorName)
       setTitle(title)
       setDescription(description)
       setTimeToSubmitWork(timeToSubmitWork)
@@ -112,7 +115,7 @@ export default function ProjectList() {
         <VStack>
           <Text {...valueTextStyle} mb="1">
             {/* {workTitle} */}
-            <Link ml={6} href={workUrl}>{workTitle}</Link>
+            <Link href={workUrl}>{workTitle}</Link>
           </Text>
 
           <Text>
@@ -126,6 +129,10 @@ export default function ProjectList() {
       <VStack p={8} >
         <Text {...valueTextStyle}>
           {title}
+        </Text>
+
+        <Text {...descTextStyle}>
+          {creatorName}
         </Text>
 
         <Text {...descTextStyle}>

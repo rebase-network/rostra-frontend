@@ -28,6 +28,7 @@ export default function CreateProject(props: ConvertProps) {
 
   const { onClose, cb = () => { } } = props
   const initialValues = {
+    creatorName: '',
     title: '',
     description: '',
     durationInDays: '',
@@ -40,6 +41,7 @@ export default function CreateProject(props: ConvertProps) {
   const [loading, setLoading] = useState(false)
 
   const validationSchema = Yup.object({
+    creatorName: Yup.string().required(),
     title: Yup.string().required(),
     description: Yup.string().required(),
     durationInDays: Yup.number().required().positive(),
@@ -53,6 +55,7 @@ export default function CreateProject(props: ConvertProps) {
   const onSub = async (values: any, actions: any) => {
     try {
       const {
+        creatorName,
         title,
         description,
         durationInDays,
@@ -66,6 +69,7 @@ export default function CreateProject(props: ConvertProps) {
       setLoading(true)
       console.log('price: ', ethers.utils.parseEther(price))
       tx = await crowdFundingApiInstance.startProject(
+        creatorName,
         title,
         description,
         durationInDays * 86400,
@@ -131,6 +135,8 @@ export default function CreateProject(props: ConvertProps) {
               Knowledge Info
             </Heading>
 
+            <InputControl label='Your Name' name='creatorName' />
+
             <InputControl label='Title' name='title' />
 
             <InputControl label='Description' name='description' />
@@ -140,7 +146,7 @@ export default function CreateProject(props: ConvertProps) {
             <Heading as='h4' size='md' mt='1rem'>
               NFT Info
             </Heading>
-            <InputControl label='ETH Price' name='price' />
+            <InputControl label='Price(Matic)' name='price' />
 
             <InputControl label='Total Supply' name='limit' />
 
