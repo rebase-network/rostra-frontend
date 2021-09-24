@@ -59,6 +59,7 @@ const Header = (props: HeaderProps) => {
           <Center p='4' fontSize={14} >
             <Link ml={6} as={routerLink} to="/fundings/create">Create Knowledge Funding</Link>
             <Link ml={6} as={routerLink} to="/about">About</Link>
+            <Link ml={6} href="https://subdued-anteater-361.notion.site/How-to-use-Rostra-b370283f30754c0297e185cacfb4b73f" target="_blank">How to use</Link>
           </Center>
 
           <Center minW='200px'>
