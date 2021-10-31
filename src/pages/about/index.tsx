@@ -12,7 +12,9 @@ export default function About() {
         </Heading>
         <Text>
           Rostra is a DAS(Decentralized Autonomous School),
-          committed to changing the way people research.
+          Rostra is committed to changing the way people learn, research and share.
+          Researchers publish research plans and raise funds from the society to fund their own research.
+          The benefits of research results can benefit funders.
         </Text>
         <Heading as="h2" size="md" mb='1rem' mt='1rem'>
           The problem
