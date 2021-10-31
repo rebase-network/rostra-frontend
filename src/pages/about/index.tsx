@@ -12,7 +12,7 @@ export default function About() {
         </Heading>
         <Text>
           Rostra is a DAS(Decentralized Autonomous School),
-          committed to changing the way people learn and share.
+          committed to changing the way people research.
         </Text>
         <Heading as="h2" size="md" mb='1rem' mt='1rem'>
           The problem
