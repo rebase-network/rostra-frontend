@@ -11,7 +11,7 @@ export default function About() {
           What is Rostra?
         </Heading>
         <Text>
-          Rostra is a DAS(Decentralized Autonomous School),
+          Rostra is a DAS(Decentralized Autonomous School).
           Rostra is committed to changing the way people learn, research and share.
           Researchers publish research plans and raise funds from the society to fund their own research.
           The benefits of research results can benefit funders.
