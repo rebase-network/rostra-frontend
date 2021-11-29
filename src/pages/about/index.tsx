@@ -21,7 +21,7 @@ export default function About() {
         </Heading>
         <Text>
           Current education is broken, we are treated as industrial commodity,
-          we learn obselete knowledge,
+          we learn obsolete knowledge,
           we pay high tuition fees that need 10 years hard work to pay back,
           we contribute less to the community and society during the work,
           even worse we can not find a job.
